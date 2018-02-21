@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="Company.js"></script>
+    <script src="Controller.js"></script>
+    <script src="Product.js"></script>	
+    <script src="SalesPerson.js"></script>	
+</head>
+<body ng-app="myapp">
+<div ng-controller="MainCtrl" class="container">
+  <h1>Hi there! Please select the SalesPerson(1) or Product(1) text file.</h1>
+    <input type="file" on-read-file="showContent($fileContent)" />
+    <div id='table1'>
+      <h2 data-ng-if="theCompany">SalesPerson Data</h2>
+      
+	  <table data-ng-if="theCompany">
+        <tr>
+          <td>ID</td>
+          <td>Name of Sales Person</td>
+           
+        </tr>
+        <tr data-ng-repeat="salesPerson in theCompany.allMySalesPersons | orderBy:'fullName'">
+          <td>{{ salesPerson.id }}</td>
+          <td>{{ salesPerson.fullName }}</td>
+        </tr>       
+      </table>
+	  <h1 data-ng-if="theCompany.getSalaryDeviation()">The mean salary is: {{ theCompany.getSalaryDeviation() }}</h1>
+	  <h1 data-ng-if="theCompany">The salesperson covariance is: {{ theCompany.getCovariance() }}</h1>
+	 
+	 <table data-ng-if="theCompanyProduct">
+        <tr>
+          <td>ID</td>
+          <td>Product Name</td>
+           
+        </tr>
+        <tr data-ng-repeat="product in theCompanyProduct.getProductsToOrder() | orderBy:'name'">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+        </tr>       
+      </table>
+	  <h2> If it did not work, please make sure the file is named correctly. My data files are named differently. </h2>
+</div>
+</div>
+</body>
+<style>
+td {
+    border: 1px solid black;
+	padding: 0em;
+	margin: 0em;
+}
+</style>
+</html>
